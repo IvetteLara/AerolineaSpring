@@ -1,0 +1,83 @@
+modal="true"
+update=":frmAviones:tblAviones"
+<p:inputText id="avion" value="#{controlVuelos.avion.idavion}" title="Avion"/>    
+update=":searchAvion:dglAviones :searchAvion:frmAviones"
+<p:commandButton id="avion" value="Consultar" icon="ui-icon-search" onclick="searchAvion.show();" 
+
+
+
+                
+                <p:dialog header="AVION" widgetVar="searchAvion"  height="100">
+                    <h:form id="dglAviones">
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column><p:outputLabel value="Avi�n"/></p:column>
+                                <p:column><p:outputLabel value="Capacidad"/></p:column>
+                                <p:column></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:inputText id="idavion" 
+                                                 value="#{controlVuelos.idavion}" title="IdAvion" />
+                                </p:column>
+
+                                <p:column>
+                                    <p:inputText id="capacidad" 
+                                                 value="#{controlVuelos.capacidad}" title="Capacidad" />
+                                </p:column>
+
+                                <p:column>
+                                    <p:commandButton value="Consultar"
+                                                     action="#{controlVuelos.getAviones()}"
+                                                     icon="ui-icon-search"  />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                    <h:form id="frmAviones">
+                        <p:growl autoUpdate="true"
+                                 showDetail="true"/><!--mostrar mensaje como poppup-->
+                        <p:messages autoUpdate="true"
+                                    closable="true" showDetail="true"/>
+
+                        <div style="clear: both"></div>
+                        <h1><h:outputText value="Listado de Aviones"/></h1>
+                        <p:dataTable id="tblAviones"
+                                     value="#{controlVuelos.aviones}" var="item"
+                                     rows="20"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}
+                                     {FirstPageLink} {PreviousPageLink}
+                                     {PageLinks} {NextPageLink} {LastPageLink}
+                                     {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="20,30,35"
+                                     paginatorPosition="bottom"
+                                     selection="#{controlVuelos.avion}">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText
+                                        value="Idavion"/>
+                                </f:facet>
+                                <h:outputText
+                                    value="#{item.idavion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText
+                                        value="Capacidad"/>
+                                </f:facet>
+                                <h:outputText
+                                    value="#{item.capacidad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText
+                                        value="Descripci�n"/>
+                                </f:facet>
+                                <h:outputText
+                                    value="#{item.descripcion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:form>                       
+                </p:dialog> 

@@ -18,9 +18,9 @@ public class VueloDaoImpl extends GenericDaoImpl<Vuelo, Integer>
         try {
             session.beginTransaction();
             String hql = " select v from Vuelo v join fetch v.aeropuertoByIdorigen "
-                       + " join fetch v.aeropuertoByIddestino join fetch v.avion "
-                       + " where v.idvuelo>0 ";
- System.out.println(hql);
+                    + " join fetch v.aeropuertoByIddestino join fetch v.avion "
+                    + " where v.idvuelo>0 ";
+            System.out.println(hql);
             if (fecha1 != null && fecha2 != null) {
                 hql += " and v.fecha between :f1 and :f2";
             }
@@ -28,9 +28,8 @@ public class VueloDaoImpl extends GenericDaoImpl<Vuelo, Integer>
             if (iddestino != 0 && idorigen != 0) {
                 hql += " and v.aeropuertoByIdorigen.idaeropuerto = :idorigen and v.aeropuertoByIddestino.idaeropuerto = :iddestino ";
             }
-            
 
- Query query = session.createQuery(hql);
+            Query query = session.createQuery(hql);
             if (fecha1 != null && fecha2 != null) {
                 query.setParameter("f1", fecha1);
                 query.setParameter("f2", fecha2);

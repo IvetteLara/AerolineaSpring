@@ -38,7 +38,11 @@ public class ControlVuelos implements Serializable {
     private Date fecha2;
     private Integer idorigen;
     private Integer iddestino;
+    private Integer idavion;
+    private Integer capacidad;
 
+
+    
     @PostConstruct
     public void init() {
         try {
@@ -72,6 +76,19 @@ public class ControlVuelos implements Serializable {
         return "ListadoVuelos.xhtml?faces-redirect=true";
     }
 
+    public String editVuelo(Vuelo v) throws Exception {
+        vuelo = v;
+        origen = vuelo.getAeropuertoByIdorigen();
+        destino = vuelo.getAeropuertoByIddestino();
+        avion = vuelo.getAvion();
+        return "FormVuelos.xhtml?faces-redirect=true";
+    }
+
+    public String deleteVuelo(Vuelo v) throws Exception {
+        vueloDaoImpl.delete(v.getIdvuelo());
+        return "ListadoVuelos.xhtml?faces-redirect=true";
+    }    
+    
     public Vuelo getVuelo() {
         return vuelo;
     }
@@ -105,7 +122,6 @@ public class ControlVuelos implements Serializable {
     }
 
     public List<Vuelo> getVuelos() throws Exception {
-        String o, d;
         idorigen = idorigen == null ? 0 : idorigen;
         iddestino = iddestino == null ? 0 : iddestino;
         vuelos = vueloDaoImpl.listarVuelos(fecha1, fecha2, idorigen, iddestino);
@@ -117,7 +133,9 @@ public class ControlVuelos implements Serializable {
     }
 
     public List<Avion> getAviones() throws Exception {
-        aviones = avionDaoImpl.findAll();
+        idavion = idavion == null ? 0 : idavion;
+        capacidad = capacidad == null ? 0 : capacidad;
+        aviones = avionDaoImpl.listarAviones(idavion, capacidad);
         return aviones;
     }
 
@@ -199,4 +217,19 @@ public class ControlVuelos implements Serializable {
         this.iddestino = iddestino;
     }
 
+    public Integer getIdavion() {
+        return idavion;
+    }
+
+    public void setIdavion(Integer idavion) {
+        this.idavion = idavion;
+    }
+
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(Integer capacidad) {
+        this.capacidad = capacidad;
+    }    
 }

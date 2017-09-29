@@ -44,9 +44,9 @@ public class GenericDaoImpl<T, ID extends Serializable> implements
                     session.getTransaction().rollback();
                 }
             } catch (Exception exc) {
-                LOGGER.log(Level.WARNING,"Falló al hacer un rollback", exc);
- }
- throw new Exception(ex);
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new Exception(ex);
         } finally {
             session.close();
         }
@@ -66,9 +66,9 @@ public class GenericDaoImpl<T, ID extends Serializable> implements
                     session.getTransaction().rollback();
                 }
             } catch (Exception exc) {
-                LOGGER.log(Level.WARNING,"Falló al hacer un rollback", exc);
- }
- throw new Exception(ex);
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new Exception(ex);
         } finally {
             session.close();
         }
@@ -91,9 +91,9 @@ public class GenericDaoImpl<T, ID extends Serializable> implements
                     session.getTransaction().rollback();
                 }
             } catch (Exception exc) {
-                LOGGER.log(Level.WARNING,"Falló al hacer un rollback", exc);
- }
- throw ex;
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw ex;
         } finally {
             session.close();
         }
@@ -115,9 +115,9 @@ public class GenericDaoImpl<T, ID extends Serializable> implements
                     session.getTransaction().rollback();
                 }
             } catch (Exception exc) {
-                LOGGER.log(Level.WARNING,"Falló al hacer un rollback", exc);
- }
- throw new RuntimeException(ex);
+                LOGGER.log(Level.WARNING, "Falló al hacer un rollback", exc);
+            }
+            throw new RuntimeException(ex);
         } finally {
             session.close();
         }

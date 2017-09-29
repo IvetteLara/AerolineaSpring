@@ -11,12 +11,11 @@
             <ui:define name="content">
                 <f:view>
                     <h:form>
-                        
                         <h1><h:outputText value="Crear/Editar Vuelo"/></h1>
-                        
+
                         <p:messages autoUpdate="true"
                                     closable="true" showDetail="true"/>     
-                        
+
                         <h:panelGrid columns="3" id="grid">
                             <h:outputLabel value="Idvuelo:"
                                            for="idvuelo" />
@@ -24,6 +23,7 @@
                                          value="#{controlVuelos.vuelo.idvuelo}" readonly="true"
                                          title="Idvuelo"/>
                             <p:message for="idvuelo" />
+
                             <h:outputLabel value="Origen:"
                                            for="aeropuertoByIdorigen" />
                             <p:selectOneMenu
@@ -38,6 +38,7 @@
                             </p:selectOneMenu>
                             <p:message for="aeropuertoByIdorigen"
                                        />
+
                             <h:outputLabel value="Destino:"
                                            for="aeropuertoByIddestino" />
                             <p:selectOneMenu
@@ -52,17 +53,14 @@
                             </p:selectOneMenu>
                             <p:message for="aeropuertoByIddestino"
                                        />
-                            <h:outputLabel value="Avion:"
+
+                            <h:outputLabel value="Avion: "
                                            for="avion" />
-                            <p:selectOneMenu id="avion"
-                                             value="#{controlVuelos.avion.idavion}" title="Avion">
-                                <f:selectItem itemLabel="AVION"
-                                              itemValue="0" />
-                                <f:selectItems
-                                    value="#{controlVuelos.aviones}" var="a"
-                                    itemLabel="#{a.descripcion}" itemValue="#{a.idavion}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="avion"
+                                         value="#{controlVuelos.avion.idavion}" 
+                                         title="Avion"/>    
                             <p:message for="avion" />
+
                             <h:outputLabel value="Fecha:"
                                            for="fecha" />
                             <p:calendar id="fecha"
@@ -70,6 +68,7 @@
                                         title="Fecha">
                             </p:calendar>
                             <p:message for="fecha" />
+
                             <h:outputLabel value="Estado:"
                                            for="estado" />
                             <p:selectOneMenu id="estado"
@@ -80,11 +79,13 @@
                                               DISPONIBLE" itemValue="NO DISPONIBLE" />
                             </p:selectOneMenu>
                             <p:message for="estado" />
+
                             <h:outputLabel value="Precio:"
                                            for="precio" />
                             <p:inputText id="precio" 
                                          value="#{controlVuelos.vuelo.precio}" title="Precio" />
                             <p:message for="precio" />
+
                             <p:commandButton value="Guardar"
                                              action="#{controlVuelos.guardarVuelo()}" icon="ui-icon-check"
                                              ajax="true" update="grid growl" validateClient="true"/>
@@ -93,8 +94,10 @@
                                              action="ListadoVuelos.xhtml?faces-redirect=true"/>
                         </h:panelGrid>
                         <p:growl id="growl" showDetail="true" sticky="true" />
+
                     </h:form>
                 </f:view>
+
             </ui:define>
         </ui:composition>
     </body>

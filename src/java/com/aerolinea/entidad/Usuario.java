@@ -70,7 +70,7 @@ public class Usuario  implements java.io.Serializable {
         this.idusuario = idusuario;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idpais", nullable=false)
     public Pais getPais() {
         return this.pais;
@@ -80,7 +80,7 @@ public class Usuario  implements java.io.Serializable {
         this.pais = pais;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idrol", nullable=false)
     public Rol getRol() {
         return this.rol;
@@ -140,7 +140,7 @@ public class Usuario  implements java.io.Serializable {
         this.clave = clave;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
     public Set<Reservacion> getReservacions() {
         return this.reservacions;
     }

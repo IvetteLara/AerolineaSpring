@@ -26,10 +26,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 )
 public class Aeropuerto  implements java.io.Serializable {
 
-     @Min(value=1, message="Seleccione aeropuerto")
+     @Min(value=1, message="{Aeropuerto.idaeropuerto.min}")
      private Integer idaeropuerto;
      private Pais pais;
-     @NotEmpty
+     @NotEmpty(message="{Aeropuerto.aeropuerto.notempty}")
      private String aeropuerto;
      private String ciudad;
      private Set<Vuelo> vuelosForIdorigen = new HashSet<Vuelo>(0);

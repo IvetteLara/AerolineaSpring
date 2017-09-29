@@ -19,63 +19,69 @@
                     <h:form id="main">
                         <p:panelGrid>
                             <p:row>
-                                <p:column><p:outputLabel value="Desde"/></p:column>
-                                <p:column><p:outputLabel value="Hasta"/></p:column>
-                                <p:column><p:outputLabel value="Origen"/></p:column>
-                                <p:column><p:outputLabel value="Destino"/></p:column>
+                                <p:column><p:outputLabel value="Usuario"/></p:column>
+                                <p:column><p:outputLabel value="Vuelo"/></p:column>
+                                <p:column><p:outputLabel value="Fecha"/></p:column>
+                                <p:column><p:outputLabel value="No. Boletos"/></p:column>
+                                <p:column><p:outputLabel value="Precio"/></p:column>
                                 <p:column></p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:calendar id="txtFecha1" pattern="dd-MM-yyyy"
-                                                value="#{controlVuelos.fecha1}"/>
-                                </p:column>
-                                <p:column>
-                                    <p:calendar id="txtFecha2" pattern="dd-MM-yyyy"
-                                                value="#{controlVuelos.fecha2}"/>
-                                </p:column>
-                                <p:column>
-                                    <h:selectOneMenu id="idorigen"
-                                                     value="#{controlVuelos.idorigen}">
-                                        <f:selectItem itemLabel="ORIGEN" itemValue="0" />
-                                        <f:selectItems value="#{controlVuelos.origenes}"
+                                    <h:selectOneMenu id="idusuario"
+                                                     value="#{controlReservaciones.idusuario}">
+                                        <f:selectItem itemLabel="USUARIO" itemValue="0" />
+                                        <f:selectItems value="#{controlReservaciones.usuarios}"
                                                        var="o"
-                                                       itemLabel="#{o.aeropuerto}"
-                                                       itemValue="#{o.idaeropuerto}"/>
+                                                       itemLabel="#{o.nombres} #{o.apellidos}"
+                                                       itemValue="#{o.idusuario}"/>
                                     </h:selectOneMenu>
                                 </p:column>
                                 <p:column>
-                                    <h:selectOneMenu id="iddestino"
-                                                     value="#{controlVuelos.iddestino}">
-                                        <f:selectItem itemLabel="DESTINO" itemValue="0" />
-                                        <f:selectItems value="#{controlVuelos.destinos}"
+                                    <h:selectOneMenu id="idvuelo"
+                                                     value="#{controlReservaciones.idvuelo}">
+                                        <f:selectItem itemLabel="VUELO" itemValue="0" />
+                                        <f:selectItems value="#{controlReservaciones.vuelos}"
                                                        var="d"
-                                                       itemLabel="#{d.aeropuerto}"
-                                                       itemValue="#{d.idaeropuerto}"/>
+                                                       itemLabel="#{d.aeropuertoByIdorigen.aeropuerto} - #{d.aeropuertoByIddestino.aeropuerto} - #{d.fecha}"
+                                                       itemValue="#{d.idvuelo}"/>
                                     </h:selectOneMenu>
+                                </p:column>
+                                <p:column>
+                                    <p:calendar id="txtFecha" pattern="dd-MM-yyyy"
+                                                value="#{controlReservaciones.fecha}"/>
+                                </p:column>                                
+                                <p:column>
+                                    <p:inputText id="nboletos"
+                                                 value="#{controlReservaciones.nboletos}" 
+                                                 title="No. Boletos"/>                                      
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="precio" 
+                                                 value="#{controlReservaciones.precio}" title="Precio" />                                    
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Consultar"
-                                                     action="#{controlVuelos.getVuelos()}"
-                                                     icon="ui-icon-search" update=":frmVuelos:tblVuelos"/>
+                                                     action="#{controlReservaciones.getReservaciones()}"
+                                                     icon="ui-icon-search" update=":frmReservaciones:tblReservaciones"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
                     </h:form>
 
-                    <h:form id="frmVuelos">
+                    <h:form id="frmReservaciones">
                         <p:growl autoUpdate="true"
                                  showDetail="true"/><!--mostrar mensaje como poppup-->
                         <p:messages autoUpdate="true"
                                     closable="true" showDetail="true"/>
                         <p:commandButton style="float:right"
-                                         icon="ui-icon-document" value="Nuevo Avion"
-                                         action="#{controlVuelos.preparaNuevo()}"/>
+                                         icon="ui-icon-document" value="Nueva Reservación"
+                                         action="#{controlReservaciones.preparaNuevo()}"/>
                         <div style="clear: both"></div>
                         <h1><h:outputText value="Listado de
-                                          Vuelos"/></h1>
-                        <p:dataTable id="tblVuelos"
-                                     value="#{controlVuelos.vuelos}" var="item"
+                                          Reservaciones"/></h1>
+                        <p:dataTable id="tblReservaciones"
+                                     value="#{controlReservaciones.reservaciones}" var="item"
                                      rows="20"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport}
@@ -87,50 +93,40 @@
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText
-                                        value="Idvuelo"/>
+                                        value="Idreservacion"/>
                                 </f:facet>
                                 <h:outputText
-                                    value="#{item.idvuelo}"/>
+                                    value="#{item.idreservacion}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText
-                                        value="AeropuertoByIdorigen"/>
+                                        value="Usuario"/>
                                 </f:facet>
                                 <h:outputText
-                                    value="#{item.aeropuertoByIdorigen.aeropuerto}"/>
+                                    value="#{item.usuario.nombres} #{item.usuario.apellidos}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText
-                                        value="AeropuertoByIddestino"/>
+                                        value="Vuelo"/>
                                 </f:facet>
                                 <h:outputText
-                                    value="#{item.aeropuertoByIddestino.aeropuerto}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Avion"/>
-                                </f:facet>
-                                <h:outputText
-                                    value="#{item.avion.descripcion}"/>
+                                    value="#{item.vuelo.aeropuertoByIdorigen.aeropuerto} - #{item.vuelo.aeropuertoByIddestino.aeropuerto} - #{item.vuelo.fecha}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Fecha"/>
                                 </f:facet>
                                 <h:outputText
-                                    value="#{item.fecha}">
-                                    <f:convertDateTime
-                                        pattern="dd/MM/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column>
+                                    value="#{item.fecha}"/>
+                            </p:column>                            
+                            <p:column>                                
                                 <f:facet name="header">
-                                    <h:outputText value="Estado"/>
+                                    <h:outputText value="No. Boletos"/>
                                 </f:facet>
                                 <h:outputText
-                                    value="#{item.estado}"/>
+                                    value="#{item.nboletos}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
@@ -140,11 +136,11 @@
                                     value="#{item.precio}"/>
                             </p:column>
                             <p:column>
-                                <p:commandButton icon="ui-iconpencil" action="#{controlVuelos.editVuelo(item)}" />
+                                <p:commandButton icon="ui-iconpencil" action="#{controlReservaciones.editReservacion(item)}" />
                             </p:column>
                             <p:column>
-                                <p:commandButton icon="ui-icontrash" action="#{controlVuelos.deleteVuelo(item)}"
-                                                 update=":frmVuelos:tblVuelos">
+                                <p:commandButton icon="ui-icontrash" action="#{controlReservaciones.deleteReservacion(item)}"
+                                                 update=":frmReservaciones:tblReservaciones">
                                     <p:confirm
                                         header="Confirmacion" message="Esta seguro?" icon="ui-icon-alert"
                                         />

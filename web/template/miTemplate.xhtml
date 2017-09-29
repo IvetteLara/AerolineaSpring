@@ -21,12 +21,20 @@
                         <p:menuitem value="Home" url="/index" icon="uiicon-home"
                                     />
                         <p:submenu label="Vuelos" icon="ui-icon-folderopen">
-                            <p:menuitem value="Consular Vuelos" icon="uiicon-search"
+                            <p:menuitem value="Consultar Vuelos" icon="uiicon-search"
                                         url="/Vuelos/ListadoVuelos.xhtml?faces-redirect=true"
                                         />
                             <p:menuitem value="Nuevo Vuelo"
                                         url="/Vuelos/FormVuelos.xhtml?faces-redirect=true" icon="ui-icondocument"/>
                         </p:submenu>
+                        <p:submenu label="Reservaciones" icon="ui-icon-folderopen">
+                            <p:menuitem value="Consultar Reservaciones" icon="uiicon-search"
+                                        url="/Reservaciones/ListadoReservaciones.xhtml?faces-redirect=true"
+                                        />
+                            <p:menuitem value="Nueva Reservación"
+                                        url="/Reservaciones/FormReservaciones.xhtml?faces-redirect=true" icon="ui-icondocument"/>
+                        </p:submenu>
+
                         <f:facet name="options">
                             <p:commandButton type="button" value="Logout"
                                              icon="ui-icon-extlink" />

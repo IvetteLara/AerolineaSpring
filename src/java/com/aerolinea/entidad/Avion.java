@@ -24,10 +24,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 )
 public class Avion  implements java.io.Serializable {
 
-     @Min(value=1, message="Seleccione avion")
+     @Min(value=1, message="{Avion.idavion.min}")
      private Integer idavion;
      private int capacidad;
-     @NotEmpty
+     @NotEmpty(message="{Avion.descripcion.notempty}")
      private String descripcion;
      private Set<Vuelo> vuelos = new HashSet<Vuelo>(0);
 
