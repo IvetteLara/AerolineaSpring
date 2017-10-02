@@ -113,7 +113,10 @@ public class ControlVuelos implements Serializable {
         this.destino = destino;
     }
 
-    public Avion getAvion() {
+    public Avion getAvion() throws Exception {
+        if(avion == null) {
+            avion = avionDaoImpl.create();
+        }
         return avion;
     }
 
