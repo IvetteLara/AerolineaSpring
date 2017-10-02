@@ -48,7 +48,7 @@ public class Vuelo  implements java.io.Serializable {
      @DecimalMax(value = "999.99", message = "{Vuelo.precio.max}")
      @DecimalMin(value = "1.00", message = "{Vuelo.precio.min}")
      @Digits(integer=3,fraction=2, message="{Vuelo.precio.digit}")   
-     //@Pattern(regexp = "[0-9]+(/.[0-9][0-9]?)?", message = "{Vuelo.precio.pattern}") 
+     @Pattern(regexp = "[0-9]+(/.[0-9][0-9]?)?", message = "{Vuelo.precio.pattern}") 
      private BigDecimal precio;
      private Set<Reservacion> reservacions = new HashSet<Reservacion>(0);
 
