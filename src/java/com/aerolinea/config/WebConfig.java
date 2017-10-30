@@ -7,10 +7,12 @@ package com.aerolinea.config;
 
 import java.util.Locale;
 import java.util.Properties;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
@@ -65,10 +67,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
       return dataSource;
     }
     
+    //https://stackoverflow.com/questions/5786582/how-to-use-annotation-validation-in-spring-with-error-message-gotten-from-proper
+    
     @Bean
-    public MessageSource messageSource() {
+    public MessageSource messageSource() { 
+
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("/com/aerolinea/config/exception");
+        messageSource.setBasenames("com/aerolinea/config/exception");  
+        
         //messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(0);
@@ -76,9 +82,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return messageSource;
     }
     
-    @Bean
+    @Bean(name="validator")
     public LocalValidatorFactoryBean validator() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+        //bean.setProviderClass(HibernateValidator.class); /**/
         bean.setValidationMessageSource(messageSource());
         return bean;
     }
@@ -88,6 +95,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return validator();
     }    
     
+    @Override
+    public void configureDefaultServletHandling(
+        DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
@@ -111,15 +124,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }   
     
     @Override
-    public void configureDefaultServletHandling(
-        DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-    
-    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/*.xhtml").addResourceLocations("/");
     }
+    
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");

@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name = "controlVuelos")
 @SessionScoped
@@ -88,6 +89,10 @@ public class ControlVuelos implements Serializable {
         vueloDaoImpl.delete(v.getIdvuelo());
         return "ListadoVuelos.xhtml?faces-redirect=true";
     }    
+    
+    public void onSelectAvion(final SelectEvent event) {
+        avion = (Avion) event.getObject();        
+    }
     
     public Vuelo getVuelo() {
         return vuelo;
